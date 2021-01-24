@@ -1,0 +1,14 @@
+{
+    "name": "gragot/laravel-dev-tools",
+    "description": "Pack de herramientas de desarrollador para laravel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "gragot",
+            "email": "gragot.dev@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
