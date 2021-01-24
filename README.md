@@ -34,3 +34,13 @@ return [
 ];
 
 ```
+
+Añadir el service provider en el archivo "config/app.php" en la seccion "providers"
+
+```
+'providers' => [
+    ...
+    \Gragot\LaravelDevTools\ServiceProvider::class
+    ...
+]
+```
