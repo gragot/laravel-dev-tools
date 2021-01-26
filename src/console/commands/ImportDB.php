@@ -45,7 +45,9 @@ class ImportDB extends Command
         if(empty($ruta_dump)) {
             die('La variable de entorno DEV_BACKUPS_DB no esta definida');
         }
-        $ruta_dump = $ruta_dump.DIRECTORY_SEPARATOR.$pro_db_database.'.sql';
+
+        $dev_db_name = config('database.connections.mysql.database');
+        $ruta_dump = $ruta_dump.DIRECTORY_SEPARATOR.$dev_db_name.'.sql';
 
         if($this->option('u') || !file_exists($ruta_dump)) {
 
@@ -70,8 +72,10 @@ class ImportDB extends Command
             echo "Exportación finalizada \n";
         }
 
-        $dev_db_port = config('database.connections.mysql.port');
-        $dev_db_name = config('database.connections.mysql.database');
+        $dev_db_port = config('database.connections.mysql.port');        
+
+        exec("C:/laragon/bin/mysql/mysql-5.7.24-winx64/bin/mysql.exe --user=root --password= --host=127.0.0.1 --port=$dev_db_port -e \"drop database $dev_db_name\"");
+        exec("C:/laragon/bin/mysql/mysql-5.7.24-winx64/bin/mysql.exe --user=root --password= --host=127.0.0.1 --port=$dev_db_port -e \"create schema $dev_db_name\"");
         exec("C:/laragon/bin/mysql/mysql-5.7.24-winx64/bin/mysql.exe --user=root --password= --database=$dev_db_name --host=127.0.0.1 --port=$dev_db_port < ".$ruta_dump);
         $hashPass = '\'$2a$10$RNE0mO2IOu9hjaHThM09hOvXS78nxO805MhezmjgaTENGm5vw7meG\'';
         DB::statement("UPDATE users SET password = $hashPass");

@@ -44,3 +44,11 @@ Añadir el service provider en el archivo "config/app.php" en la seccion "provid
     ...
 ]
 ```
+
+Para poder realizar las exportaciones de base de datos de pro es necesario crear un archivo .my.cnf con el siguiente contenido:
+
+```
+[mysqldump]
+user=*El usuario de la base de datos*
+password=*La contraseña de la base de datos*
+```
