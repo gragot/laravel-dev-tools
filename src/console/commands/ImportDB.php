@@ -62,11 +62,16 @@ class ImportDB extends Command
                 die('La variable de entorno SSH_PRO_USER no esta definida');
             }
 
-            $export = 'ssh ssh_user@ssh_host "mysqldump --defaults-extra-file=.my.cnf --no-tablespaces pro_db_database" > db_dump.sql';
+            $export = 'ssh ssh_user@ssh_host "mysqldump --defaults-extra-file=.my.cnf opciones pro_db_database" > "db_dump.sql"';
             $export = str_replace('ssh_host', $pro_host, $export);
             $export = str_replace('ssh_user', $ssh_pro_user, $export);
             $export = str_replace('pro_db_database', $pro_db_database, $export);
             $export = str_replace('db_dump.sql', $ruta_dump, $export);
+            if(config('dev_tools.mysqldump_opciones')) {
+                $export = str_replace('opciones', config('dev_tools.mysqldump_opciones'), $export);
+            } else {
+                $export = str_replace('opciones', '', $export);
+            }
 
             exec($export);
             echo "Exportación finalizada \n";
