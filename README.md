@@ -30,7 +30,8 @@ return [
     'pro_db_database' => env('PRO_DB_DATABASE'),
     'dev_backups_db' => env('DEV_BACKUPS_DB'),
     'pro_host' => env('PRO_HOST'),
-    'ssh_pro_user' => env('SSH_PRO_USER')
+    'ssh_pro_user' => env('SSH_PRO_USER'),
+    'mysqldump_opciones' => env('DEV_TOOLS_MYSQLDUMP_OPCIONES', false),
 ];
 
 ```
