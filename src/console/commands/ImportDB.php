@@ -12,7 +12,7 @@ class ImportDB extends Command
      *
      * @var string
      */
-    protected $signature = 'dev:importar_bd {--u}';
+    protected $signature = 'dev:import_db {--u}';
 
     /**
      * The console command description.

@@ -53,3 +53,17 @@ Para poder realizar las exportaciones de base de datos de pro es necesario crear
 user=*El usuario de la base de datos*
 password=*La contraseña de la base de datos*
 ```
+
+# Uso
+
+Para importar el dump de la base de datos que tenemos en local
+
+```
+php artisan dev:import_db
+```
+
+Para importar la base de datos de producción
+
+```
+php artisan dev:import_db --u
+```
