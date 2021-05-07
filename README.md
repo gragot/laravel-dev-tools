@@ -1,6 +1,6 @@
 # Instalación
 
-Añadir al composer.json el respositorio en la sección "repositories"
+Añadir al **composer.json** el respositorio en la sección **repositories**
 
 ``` 
 "repositories": {
@@ -21,7 +21,7 @@ composer require gragot/laravel-dev-tools
 
 # Configuración
 
-Crear el archivo dev_tools.php en app/config con el siguiente contenido:
+Crear el archivo **dev_tools.php** en **app/config** con el siguiente contenido:
 
 ```
 <?php
@@ -36,7 +36,7 @@ return [
 
 ```
 
-Añadir el service provider en el archivo "config/app.php" en la seccion "providers"
+Añadir el service provider en el archivo **config/app.php** en la seccion **providers**
 
 ```
 'providers' => [
@@ -46,6 +46,12 @@ Añadir el service provider en el archivo "config/app.php" en la seccion "provid
 ]
 ```
 
+Es posible que tengas que refrescar la configuracion cacheada
+
+``` 
+php artisan config:cache
+```
+
 Para poder realizar las exportaciones de base de datos de pro es necesario crear un archivo .my.cnf con el siguiente contenido:
 
 ```
@@ -53,6 +59,15 @@ Para poder realizar las exportaciones de base de datos de pro es necesario crear
 user=*El usuario de la base de datos*
 password=*La contraseña de la base de datos*
 ```
+
+## Variables de entorno
+
+Es necesario configurar las variables de entorno en el fichero **.env**:
+
+pro_db_database: El nombre de la base de datos de produccion
+dev_backups_db: La ruta donde se ubica el dump de la base de datos
+pro_host: La ip o el dominio de producción
+ssh_pro_user: El usuario ssh de produccion
 
 # Uso
 
