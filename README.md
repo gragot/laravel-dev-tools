@@ -36,6 +36,8 @@ return [
 
 ```
 
+Configura las las claves del archivo .env
+
 Añadir el service provider en el archivo **config/app.php** en la seccion **providers**
 
 ```
@@ -52,7 +54,7 @@ Es posible que tengas que refrescar la configuracion cacheada
 php artisan config:cache
 ```
 
-Para poder realizar las exportaciones de base de datos de pro es necesario crear un archivo .my.cnf con el siguiente contenido:
+Para poder realizar las exportaciones de base de datos de pro ``` dev:import_db --u ``` es necesario crear un archivo .my.cnf en el directorio principal con el siguiente contenido:
 
 ```
 [mysqldump]
@@ -69,16 +71,20 @@ dev_backups_db: La ruta donde se ubica el dump de la base de datos
 pro_host: La ip o el dominio de producción
 ssh_pro_user: El usuario ssh de produccion
 
-# Uso
-
-Para importar el dump de la base de datos que tenemos en local
+# Comandos
 
 ```
 php artisan dev:import_db
 ```
 
-Para importar la base de datos de producción
+Importa el dump de la base de datos que tenemos en local al entorno de desarrollo
+
+Opciones:
+
+* --u Realiza un dump de la base de datos de produccion y actualiza el dump local
 
 ```
-php artisan dev:import_db --u
+php artisan dev:up
 ```
+
+Levanta el entorno de desarollo

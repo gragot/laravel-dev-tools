@@ -47,6 +47,16 @@ class ImportDB extends Command
         }
 
         $dev_db_name = config('database.connections.mysql.database');
+
+        try {
+            $db = DB::select("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '$dev_db_name'");
+            if (empty($db)) {
+                die("La base de datos $dev_db_name no esta definida");
+            }
+        } catch (\Throwable $e) {
+            die("La base de datos $dev_db_name no esta definida");
+        }
+
         $ruta_dump = $ruta_dump.DIRECTORY_SEPARATOR.$dev_db_name.'.sql';
 
         if($this->option('u') || !file_exists($ruta_dump)) {
