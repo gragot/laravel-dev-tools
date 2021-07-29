@@ -4,6 +4,7 @@ namespace Gragot\LaravelDevTools;
 
 use Gragot\LaravelDevTools\Console\Commands\DevUp;
 use Gragot\LaravelDevTools\Console\Commands\ImportDB;
+use Gragot\LaravelDevTools\Console\Commands\RutaSinTest;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
 class ServiceProvider extends LaravelServiceProvider
@@ -18,7 +19,8 @@ class ServiceProvider extends LaravelServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 ImportDB::class,
-                DevUp::class
+                DevUp::class,
+                RutaSinTest::class
             ]);
         }
     }
