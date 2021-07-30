@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 class RutaSinTest extends Command
 {
-    protected $signature = 'ruta_sin_test';
+    protected $signature = 'ruta_sin_test {--m=}';
 
     private $controladorMetodoString;
 
@@ -30,15 +30,20 @@ class RutaSinTest extends Command
     public function handle()
     {
         $routeCollection = Route::getRoutes(); /** @var Ruta $ruta */
+        $method = $this->option('m');
 
         foreach ($routeCollection as $ruta)
         {
 
             try {
 
-                if(substr($ruta->getAction()['controller'], 0, 3) != 'App' || $ruta->action['prefix'] == 'api') {
+                if(!array_key_exists('controller', $ruta->getAction()) || substr($ruta->getAction()['controller'], 0, 3) != 'App' || $ruta->action['prefix'] == 'api') {
                     // Descartamos los controladores que nos son de la aplicacción
                     // Descartamos la rutas que son de api
+                    continue;
+                }
+
+                if(!empty($method) && !in_array(strtoupper($method), $ruta->methods)) {
                     continue;
                 }
 
