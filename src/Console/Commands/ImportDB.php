@@ -41,9 +41,14 @@ class ImportDB extends Command
             die('La variable de entorno PRO_DB_DATABASE no esta definida');
         }
 
-        $ruta_dump = config('dev_tools.dev_backups_db');
+        $ruta_dump = config('dev_tools.dev_backups_db_path');
         if(empty($ruta_dump)) {
-            die('La variable de entorno DEV_BACKUPS_DB no esta definida');
+            die('La variable de entorno DEV_BACKUPS_DB_path no esta definida');
+        }
+
+        $ruta_mysql = config('dev_tools.dev_mysql_path');
+        if(empty($ruta_dump)) {
+            die('La variable de entorno DEV_MYSQL_PATH no esta definida');
         }
 
         $dev_db_name = config('database.connections.mysql.database');
@@ -67,9 +72,9 @@ class ImportDB extends Command
             if(empty($pro_host)) {
                 die('La variable de entorno PRO_HOST no esta definida');
             }
-            $ssh_pro_user = config('dev_tools.ssh_pro_user');
+            $ssh_pro_user = config('dev_tools.pro_ssh_user');
             if(empty($ssh_pro_user)) {
-                die('La variable de entorno SSH_PRO_USER no esta definida');
+                die('La variable de entorno PRO_SSH_USER no esta definida');
             }
 
             $export = 'ssh ssh_user@ssh_host "mysqldump --defaults-extra-file=.my.cnf opciones pro_db_database" > "db_dump.sql"';
@@ -89,9 +94,9 @@ class ImportDB extends Command
 
         $dev_db_port = config('database.connections.mysql.port');        
 
-        exec("C:/laragon/bin/mysql/mysql-5.7.24-winx64/bin/mysql.exe --user=root --password= --host=127.0.0.1 --port=$dev_db_port -e \"drop database $dev_db_name\"");
-        exec("C:/laragon/bin/mysql/mysql-5.7.24-winx64/bin/mysql.exe --user=root --password= --host=127.0.0.1 --port=$dev_db_port -e \"create schema $dev_db_name\"");
-        exec("C:/laragon/bin/mysql/mysql-5.7.24-winx64/bin/mysql.exe --user=root --password= --database=$dev_db_name --host=127.0.0.1 --port=$dev_db_port < ".$ruta_dump);
+        exec("$ruta_mysql --user=root --password= --host=127.0.0.1 --port=$dev_db_port -e \"drop database $dev_db_name\"");
+        exec("$ruta_mysql --user=root --password= --host=127.0.0.1 --port=$dev_db_port -e \"create schema $dev_db_name\"");
+        exec("$ruta_mysql --user=root --password= --database=$dev_db_name --host=127.0.0.1 --port=$dev_db_port < ".$ruta_dump);
         $hashPass = '\'$2a$10$RNE0mO2IOu9hjaHThM09hOvXS78nxO805MhezmjgaTENGm5vw7meG\'';
         DB::statement("UPDATE users SET password = $hashPass");
         echo 'Importación finalizada';

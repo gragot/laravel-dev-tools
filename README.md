@@ -27,10 +27,11 @@ Crear el archivo **dev_tools.php** en **app/config** con el siguiente contenido:
 <?php
 
 return [
-    'pro_db_database' => env('PRO_DB_DATABASE'),
-    'dev_backups_db' => env('DEV_BACKUPS_DB'),
     'pro_host' => env('PRO_HOST'),
-    'ssh_pro_user' => env('SSH_PRO_USER'),
+    'pro_ssh_user' => env('PRO_SSH_USER'),
+    'pro_db_database' => env('PRO_DB_DATABASE'),
+    'dev_backups_db_path' => env('DEV_BACKUPS_DB_PATH'),
+    'dev_mysql_path' => env('DEV_MYSQL_PATH'),
     'mysqldump_opciones' => env('DEV_TOOLS_MYSQLDUMP_OPCIONES', false),
 ];
 
@@ -67,9 +68,9 @@ password=*La contraseña de la base de datos*
 Es necesario configurar las variables de entorno en el fichero **.env**:
 
 pro_db_database: El nombre de la base de datos de produccion
-dev_backups_db: La ruta donde se ubica el dump de la base de datos
+dev_backups_db_path: La ruta donde se ubica el dump de la base de datos
 pro_host: La ip o el dominio de producción
-ssh_pro_user: El usuario ssh de produccion
+pro_ssh_user: El usuario ssh de produccion
 
 # Comandos
 
