@@ -43,7 +43,7 @@ class ImportDB extends Command
 
         $ruta_dump = config('dev_tools.dev_backups_db_path');
         if(empty($ruta_dump)) {
-            die('La variable de entorno DEV_BACKUPS_DB_path no esta definida');
+            die('La variable de entorno DEV_BACKUPS_DB_PATH no esta definida');
         }
 
         $ruta_mysql = config('dev_tools.dev_mysql_path');
