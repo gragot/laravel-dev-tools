@@ -36,6 +36,15 @@ class ImportDB extends Command
      */
     public function handle() : void
     {
+        if(!empty(config('dev_tools.dev_db_host'))) {
+            config(['database.connections.mysql.host' => config('dev_tools.dev_db_host')]);
+        }
+        $dev_db_host = config('dev_tools.dev_db_host');
+        if(!empty(config('dev_tools.dev_db_port'))) {
+            config(['database.connections.mysql.port' => config('dev_tools.dev_db_port')]);
+        }
+        $dev_db_port = config('database.connections.mysql.port');
+
         $pro_db_database = config('dev_tools.pro_db_database');
         if(empty($pro_db_database)) {
             die('La variable de entorno PRO_DB_DATABASE no esta definida');
@@ -92,11 +101,9 @@ class ImportDB extends Command
             echo "Exportación finalizada \n";
         }
 
-        $dev_db_port = config('database.connections.mysql.port');        
-
-        exec("$ruta_mysql --user=root --password= --host=127.0.0.1 --port=$dev_db_port -e \"drop database $dev_db_name\"");
-        exec("$ruta_mysql --user=root --password= --host=127.0.0.1 --port=$dev_db_port -e \"create schema $dev_db_name\"");
-        exec("$ruta_mysql --user=root --password= --database=$dev_db_name --host=127.0.0.1 --port=$dev_db_port < ".$ruta_dump);
+        exec("$ruta_mysql --user=root --password= --host=$dev_db_host --port=$dev_db_port -e \"drop database $dev_db_name\"");
+        exec("$ruta_mysql --user=root --password= --host=$dev_db_host --port=$dev_db_port -e \"create schema $dev_db_name\"");
+        exec("$ruta_mysql --user=root --password= --database=$dev_db_name --host=$dev_db_host --port=$dev_db_port < ".$ruta_dump);
         $hashPass = '\'$2a$10$RNE0mO2IOu9hjaHThM09hOvXS78nxO805MhezmjgaTENGm5vw7meG\'';
         DB::statement("UPDATE users SET password = $hashPass");
         echo 'Importación finalizada';
