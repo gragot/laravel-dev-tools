@@ -44,6 +44,7 @@ class ImportDB extends Command
             config(['database.connections.mysql.port' => config('dev_tools.dev_db_port')]);
         }
         $dev_db_port = config('database.connections.mysql.port');
+        DB::purge('mysql');
 
         $pro_db_database = config('dev_tools.pro_db_database');
         if(empty($pro_db_database)) {
@@ -68,6 +69,7 @@ class ImportDB extends Command
                 die("La base de datos $dev_db_name no esta definida");
             }
         } catch (\Throwable $e) {
+            dump($e->getMessage());
             die("La base de datos $dev_db_name no esta definida");
         }
 
