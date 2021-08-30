@@ -19,6 +19,16 @@ Ejecutar
 composer require gragot/laravel-dev-tools
 ```
 
+Añadir el service provider en el archivo **config/app.php** en la seccion **providers**
+
+```
+'providers' => [
+    ...
+    \Gragot\LaravelDevTools\ServiceProvider::class
+    ...
+]
+```
+
 # Configuración
 
 Crear el archivo **dev_tools.php** en **app/config** con el siguiente contenido:
@@ -38,16 +48,6 @@ return [
 ```
 
 Configura las las claves del archivo .env
-
-Añadir el service provider en el archivo **config/app.php** en la seccion **providers**
-
-```
-'providers' => [
-    ...
-    \Gragot\LaravelDevTools\ServiceProvider::class
-    ...
-]
-```
 
 Es posible que tengas que refrescar la configuracion cacheada
 
