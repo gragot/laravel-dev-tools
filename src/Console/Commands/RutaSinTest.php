@@ -115,7 +115,7 @@ class RutaSinTest extends Command
 
     public function transformarTexto($texto)
     {
-        $rutaSeccionMinuscula = lcfirst($texto);
+        $rutaSeccionMinuscula = $texto;
         $seccionTransformada = '';
 
         for ($i = 0; $i < strlen($texto); $i++)
