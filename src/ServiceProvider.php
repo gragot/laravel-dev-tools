@@ -16,12 +16,16 @@ class ServiceProvider extends LaravelServiceProvider
      */
     public function boot()
     {
-        if ($this->app->runningInConsole()) {
-            $this->commands([
+        if ($this->app->runningInConsole())
+        {
+            $comandos = [
                 ImportDB::class,
-                DevUp::class,
                 RutaSinTest::class
-            ]);
+            ];
+            if(config('dev_tools.commands.dev:import_db') == true) {
+                $comandos[] = DevUp::class;
+            }
+            $this->commands($comandos);
         }
     }
 
