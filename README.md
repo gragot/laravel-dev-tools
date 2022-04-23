@@ -55,14 +55,6 @@ Es posible que tengas que refrescar la configuracion cacheada
 php artisan config:cache
 ```
 
-Para poder realizar las exportaciones de base de datos de pro ``` dev:import_db --u ``` es necesario crear un archivo .my.cnf en el directorio principal con el siguiente contenido:
-
-```
-[mysqldump]
-user=*El usuario de la base de datos*
-password=*La contraseña de la base de datos*
-```
-
 ## Variables de entorno
 
 Es necesario configurar las variables de entorno en el fichero **.env**:
@@ -78,11 +70,24 @@ pro_ssh_user: El usuario ssh de produccion
 php artisan dev:import_db
 ```
 
-Importa el dump de la base de datos que tenemos en local al entorno de desarrollo
+Importa el dump de la base de datos de producción que tenemos almacenado en local al entorno de desarrollo, si no tenemos copia local exporta la base de datos de produccion la guarda en local y la importa.
 
-Opciones:
+## Requisitos
 
-* --u Realiza un dump de la base de datos de produccion y actualiza el dump local
+Para poder realizar las exportaciones de base de datos de pro ``` dev:import_db --u ``` es necesario crear un archivo .my.cnf en el directorio principal con el siguiente contenido:
+
+PRO_DB_DATABASE
+DEV_BACKUPS_DB_PATH
+
+```
+[mysqldump]
+user=*El usuario de la base de datos*
+password=*La contraseña de la base de datos*
+```
+
+## Opciones:
+
+* --u Realiza un dump de la base de datos de produccion y actualiza el dump local, despues lo importa a la base de datos de desarrollo
 
 ```
 php artisan dev:up
