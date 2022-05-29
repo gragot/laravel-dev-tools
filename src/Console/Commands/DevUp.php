@@ -38,7 +38,6 @@ class DevUp extends Command
     public function handle() : void
     {
         exec('docker-compose -f docker/docker-compose.yml up -d');
-        // TODO: Indicar url
-        // echo 'http://localhost:90';
+        echo config('app.url');
     }
 }
