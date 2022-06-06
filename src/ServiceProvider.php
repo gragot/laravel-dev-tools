@@ -22,7 +22,7 @@ class ServiceProvider extends LaravelServiceProvider
                 ImportDB::class,
                 RutaSinTest::class
             ];
-            if(config('dev_tools.commands.dev:import_db') == true) {
+            if(config('dev_tools.commands.dev:up') == true) {
                 $comandos[] = DevUp::class;
             }
             $this->commands($comandos);

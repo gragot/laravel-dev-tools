@@ -10,6 +10,6 @@ return [
     'dev_mysql_path' => null,
     'mysqldump_opciones' => env('DEV_TOOLS_MYSQLDUMP_OPCIONES', false),
     'commands' => [
-        'dev:import_db' => false
+        'dev:up' => false
     ]
 ];
