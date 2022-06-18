@@ -37,12 +37,17 @@ Crear el archivo **dev_tools.php** en **app/config** con el siguiente contenido:
 <?php
 
 return [
-    'pro_host' => env('PRO_HOST'),
     'pro_ssh_user' => env('PRO_SSH_USER'),
+    'pro_host' => env('PRO_HOST'),
     'pro_db_database' => env('PRO_DB_DATABASE'),
+    'dev_db_host' => env('DEV_DB_HOST'),
+    'dev_db_port' => env('DEV_DB_PORT'),
     'dev_backups_db_path' => env('DEV_BACKUPS_DB_PATH'),
-    'dev_mysql_path' => env('DEV_MYSQL_PATH'),
+    'dev_mysql_path' => null,
     'mysqldump_opciones' => env('DEV_TOOLS_MYSQLDUMP_OPCIONES', false),
+    'commands' => [
+        'dev:up' => false
+    ]
 ];
 
 ```
@@ -66,13 +71,27 @@ pro_ssh_user: El usuario ssh de produccion
 
 # Comandos
 
+## php artisan dev:up
+
+```
+php artisan dev:up
+```
+
+Levanta el entorno de desarollo
+
+### Requisitos
+
+En el archivo de configuración "dev_tools.php" pon a true la clave "dev_tools.commands.dev:up"
+
+## php artisan dev:import_db
+
 ```
 php artisan dev:import_db
 ```
 
 Importa el dump de la base de datos de producción que tenemos almacenado en local al entorno de desarrollo, si no tenemos copia local exporta la base de datos de produccion la guarda en local y la importa.
 
-## Requisitos
+### Requisitos
 
 Para poder realizar las exportaciones de base de datos de pro ``` dev:import_db --u ``` es necesario crear un archivo .my.cnf en el directorio principal con el siguiente contenido:
 
@@ -85,12 +104,6 @@ user=*El usuario de la base de datos*
 password=*La contraseña de la base de datos*
 ```
 
-## Opciones:
+### Opciones:
 
 * --u Realiza un dump de la base de datos de produccion y actualiza el dump local, despues lo importa a la base de datos de desarrollo
-
-```
-php artisan dev:up
-```
-
-Levanta el entorno de desarollo
