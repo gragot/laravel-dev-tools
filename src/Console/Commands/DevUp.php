@@ -38,6 +38,6 @@ class DevUp extends Command
     public function handle() : void
     {
         exec('docker-compose -f docker/docker-compose.yml up -d');
-        echo config('app.url');
+        echo config('app.url') . PHP_EOL;
     }
 }
