@@ -58,7 +58,10 @@ class ImportDB extends Command
 
         $ruta_dump = config('dev_tools.dev_backups_db_path');
         if(empty($ruta_dump)) {
-            die('La variable de entorno DEV_BACKUPS_DB_PATH no esta definida');
+            $ruta_dump = storage_path('database_dumps');
+            if(!file_exists(storage_path('database_dumps'))) {
+                $this->crearDirectorioDump();
+            }
         }
 
         $ruta_mysql = config('dev_tools.dev_mysql_path');
@@ -71,11 +74,11 @@ class ImportDB extends Command
         try {
             $db = DB::select("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '$dev_db_name'");
             if (empty($db)) {
-                die("La base de datos $dev_db_name no esta definida");
+                die("La base de datos de dev $dev_db_name no esta definida");
             }
         } catch (\Throwable $e) {
             dump($e->getMessage());
-            die("La base de datos $dev_db_name no esta definida");
+            die("La base de datos de dev $dev_db_name no esta definida");
         }
 
         $ruta_dump = $ruta_dump.DIRECTORY_SEPARATOR.$dev_db_name.'.sql';
@@ -114,5 +117,9 @@ class ImportDB extends Command
         $hashPass = '\'$2a$10$RNE0mO2IOu9hjaHThM09hOvXS78nxO805MhezmjgaTENGm5vw7meG\'';
         DB::statement("UPDATE $dev_nombre_tabla_usuarios SET password = $hashPass");
         echo 'Importación finalizada';
+    }
+
+    private function crearDirectorioDump() {
+        mkdir(storage_path('database_dumps'));
     }
 }

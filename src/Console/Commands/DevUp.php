@@ -4,6 +4,7 @@ namespace Gragot\LaravelDevTools\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\Process\Process;
 
 class DevUp extends Command
 {
@@ -36,6 +37,7 @@ class DevUp extends Command
      */
     public function handle() : void
     {
-        exec('docker-compose up -d');
+        exec('docker-compose -f docker/docker-compose.yml up -d');
+        echo config('app.url') . PHP_EOL;
     }
 }
