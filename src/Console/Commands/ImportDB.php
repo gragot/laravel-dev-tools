@@ -46,6 +46,11 @@ class ImportDB extends Command
         $dev_db_port = config('database.connections.mysql.port');
         DB::purge('mysql');
 
+        $dev_nombre_tabla_usuarios = 'users';
+        if(!empty(config('dev_tools.dev_nombre_tabla_usuarios'))) {
+            $dev_nombre_tabla_usuarios = config('dev_tools.dev_nombre_tabla_usuarios');
+        }
+
         $pro_db_database = config('dev_tools.pro_db_database');
         if(empty($pro_db_database)) {
             die('La variable de entorno PRO_DB_DATABASE no esta definida');
@@ -107,7 +112,7 @@ class ImportDB extends Command
         exec("$ruta_mysql --user=root --password= --host=$dev_db_host --port=$dev_db_port -e \"create schema $dev_db_name\"");
         exec("$ruta_mysql --user=root --password= --database=$dev_db_name --host=$dev_db_host --port=$dev_db_port < ".$ruta_dump);
         $hashPass = '\'$2a$10$RNE0mO2IOu9hjaHThM09hOvXS78nxO805MhezmjgaTENGm5vw7meG\'';
-        DB::statement("UPDATE users SET password = $hashPass");
+        DB::statement("UPDATE $dev_nombre_tabla_usuarios SET password = $hashPass");
         echo 'Importación finalizada';
     }
 }

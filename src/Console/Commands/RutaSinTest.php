@@ -130,8 +130,9 @@ class RutaSinTest extends Command
         return $seccionTransformada;
     }
 
-    public function dumpRuta($ruta) {
-        dump($ruta->getName());
-        dump($this->controladorMetodoString);
+    public function dumpRuta($ruta)
+    {
+        dump('Name: ' . $ruta->getName());
+        dump('Controlador y método: ' . $this->controladorMetodoString);
     }
 }

@@ -7,7 +7,7 @@ use Gragot\LaravelDevTools\Console\Commands\ImportDB;
 use Gragot\LaravelDevTools\Console\Commands\RutaSinTest;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
-class ServiceProvider extends LaravelServiceProvider
+class LaravelDevToolsServiceProvider extends LaravelServiceProvider
 {
     /**
      * Bootstrap services.

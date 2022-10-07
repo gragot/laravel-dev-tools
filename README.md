@@ -24,7 +24,7 @@ Añadir el service provider en el archivo **config/app.php** en la seccion **pro
 ```
 'providers' => [
     ...
-    \Gragot\LaravelDevTools\ServiceProvider::class
+    \Gragot\LaravelDevTools\LaravelDevToolsServiceProvider::class
     ...
 ]
 ```
